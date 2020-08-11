@@ -1,0 +1,84 @@
+package com.rohman.spbu.ui.history
+
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
+import com.rohman.spbu.R
+import com.rohman.spbu.epoxyModel.fotoAllModel
+import com.rohman.spbu.model.Foto
+import com.rohman.spbu.ui.historyView.HistoryViewFragment
+import kotlinx.android.synthetic.main.fragment_history_foto_all.*
+
+
+class HistoryFotoAllFragment : Fragment() {
+
+    private val viewmodel: HistoryFotoViewModel by activityViewModels()
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.fragment_history_foto_all, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val arrChecked = ArrayList<Foto>()
+        setVisibilityFab(false)
+
+        floatingActionButton.setOnClickListener {
+            arrChecked.forEach {
+                viewmodel.delete(it)
+            }
+            arrChecked.clear()
+            setVisibilityFab(false)
+
+        }
+
+        viewmodel.allFoto.observe(viewLifecycleOwner, Observer { data ->
+            recyclerHistoryFotoAll.withModels {
+                data.forEach {
+                    fotoAllModel {
+                        id(it.id)
+                        foto(it)
+                        listener {
+                        findNavController().navigate(HistoryFragmentDirections.actionHistoryFragmentToHistoryViewFragment(it.id ?: 0,
+                            HistoryViewFragment.TYPE_FOTO))
+                        }
+                        checkboxListener { b ->
+                            if (b) {
+                                arrChecked.add(it)
+                            } else {
+                                var index: Int? = null
+                                    arrChecked.forEachIndexed { i, d ->
+                                        if (d.id == it.id) {
+                                            index = i
+                                        }
+                                    }
+                                index?.let { it1 -> arrChecked.removeAt(it1) }
+                            }
+
+                            setVisibilityFab(arrChecked.size != 0)
+                            println("ARRCHECKED $arrChecked")
+                        }
+                    }
+                }
+            }
+        }
+        )
+    }
+
+
+    fun setVisibilityFab(state: Boolean) {
+        if (state) {
+            floatingActionButton.visibility = View.VISIBLE
+        } else {
+            floatingActionButton.visibility = View.GONE
+        }
+    }
+}

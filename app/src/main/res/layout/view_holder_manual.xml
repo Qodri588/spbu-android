@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardHistory"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="5dp"
+    app:strokeWidth="1dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/view_holder_stroke"
+        android:padding="16dp">
+
+        <TextView
+            android:textSize="18sp"
+            android:id="@+id/text_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="6 juli 2020"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/text_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Status    : Sukses"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_date" />
+
+        <TextView
+            android:id="@+id/text_qty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Volume"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_status" />
+
+        <TextView
+            android:id="@+id/text_qty_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" : 2 liter"
+            app:layout_constraintStart_toEndOf="@+id/text_qty"
+            app:layout_constraintTop_toTopOf="@+id/text_qty" />
+
+        <TextView
+            android:id="@+id/text_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Harga"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_qty" />
+
+        <TextView
+            android:id="@+id/text_price_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" : Rp 15.000"
+            app:layout_constraintStart_toEndOf="@+id/text_price"
+            app:layout_constraintTop_toBottomOf="@+id/text_qty_detail" />
+
+        <TextView
+            android:id="@+id/text_nama_produk"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="PERTALITE"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

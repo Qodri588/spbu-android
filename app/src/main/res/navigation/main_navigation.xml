@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navigation"
+
+    app:startDestination="@id/mainFragment">
+
+    <fragment
+        android:id="@+id/printManualFragment"
+        android:name="com.rohman.spbu.ui.printManual.PrintManualFragment"
+        android:label="fragment_print_manual"
+        tools:layout="@layout/fragment_print_manual" />
+    <fragment
+        android:id="@+id/printFotoFragment"
+        android:name="com.rohman.spbu.ui.printFoto.PrintFotoFragment"
+        android:label="fragment_print_foto"
+        tools:layout="@layout/fragment_print_foto" />
+    <fragment
+        tools:layout="@layout/fragment_history"
+        android:id="@+id/historyFragment"
+        android:name="com.rohman.spbu.ui.history.HistoryFragment"
+        android:label="HistoryFragment" >
+        <action
+            android:id="@+id/action_historyFragment_to_historyViewFragment"
+            app:destination="@id/historyViewFragment" />
+    </fragment>
+    <fragment
+        tools:layout="@layout/fragment_main"
+        android:id="@+id/mainFragment"
+        android:name="com.rohman.spbu.ui.home.MainFragment"
+        android:label="MainFragment" >
+        <action
+            android:id="@+id/action_mainFragment_to_printManualFragment"
+            app:destination="@id/printManualFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_historyFragment"
+            app:destination="@id/historyFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_printFotoFragment"
+            app:destination="@id/printFotoFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_historyViewFragment"
+            app:destination="@id/historyViewFragment" />
+    </fragment>
+    <fragment
+        tools:layout="@layout/fragment_history_view"
+        android:id="@+id/historyViewFragment"
+        android:name="com.rohman.spbu.ui.historyView.HistoryViewFragment"
+        android:label="HistoryViewFragment" >
+        <argument
+            android:name="id"
+            app:argType="integer"
+            android:defaultValue="0" />
+        <argument
+            android:name="type"
+            app:argType="string"
+            android:defaultValue="MANUAL" />
+    </fragment>
+</navigation>
