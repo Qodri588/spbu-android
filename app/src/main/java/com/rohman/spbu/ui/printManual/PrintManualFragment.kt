@@ -156,7 +156,7 @@ class PrintManualFragment : Fragment() {
             compositeDisposable.add(
                 inputHargaPerLiter.textChanges()
                     .skip(1)
-                    .debounce(500, TimeUnit.MILLISECONDS)
+                    .debounce(1, TimeUnit.SECONDS)
                     .observeOn(AndroidSchedulers.mainThread())
                     .filter { inputHargaPerLiter.isFocused }
                     .filter { it.isNotEmpty() }
@@ -174,7 +174,7 @@ class PrintManualFragment : Fragment() {
             compositeDisposable.add(
                 inputHargaPerLiter.textChanges()
                     .skip(1)
-                    .debounce(500, TimeUnit.MILLISECONDS)
+                    .debounce(1, TimeUnit.SECONDS)
                     .observeOn(AndroidSchedulers.mainThread())
                     .filter { inputHargaPerLiter.isFocused }
                     .filter { it.isNotEmpty() }
@@ -193,7 +193,7 @@ class PrintManualFragment : Fragment() {
             compositeDisposable.add(
                 inputVolume.textChanges()
                     .skip(1)
-                    .debounce(500, TimeUnit.MILLISECONDS)
+                    .debounce(1, TimeUnit.SECONDS)
                     .observeOn(AndroidSchedulers.mainThread())
                     .filter { inputVolume.isFocused }
                     .filter { it.isNotEmpty() }
@@ -210,7 +210,7 @@ class PrintManualFragment : Fragment() {
             compositeDisposable.add(
                 inputVolume.textChanges()
                     .skip(1)
-                    .debounce(500, TimeUnit.MILLISECONDS)
+                    .debounce(1, TimeUnit.SECONDS)
                     .observeOn(AndroidSchedulers.mainThread())
                     .filter { inputVolume.isFocused }
                     .filter { it.isNotEmpty() }
@@ -256,6 +256,14 @@ class PrintManualFragment : Fragment() {
                         inputVolume.setText(
                             (it / inputHargaPerLiter.text.toString().toDouble()).toVolumeValue()
                         )
+                    }
+            )
+
+            compositeDisposable.add(
+                inputTotalHarga.textChanges()
+                    .map { it.toString() }
+                    .subscribe {
+                        inputCash.setText(it)
                     }
             )
 
@@ -531,7 +539,9 @@ class PrintManualFragment : Fragment() {
         val selamatJalan = myLayout.findViewById(R.id.selamatJalan) as TextView
         val footerCash = myLayout.findViewById(R.id.footerCash) as TextView
 
-        headerNomor.typeface = type
+        val footerBatas2 = myLayout.findViewById(R.id.footerBatas2) as TextView
+
+        headerNomor.typeface = typeBold
         headerAlamat.typeface = type
         headerJalan.typeface = type
         headerShift.typeface = type
@@ -573,8 +583,20 @@ class PrintManualFragment : Fragment() {
                 "Total Harga  : " + total_harga.toIndonesiaCurrency().toDoublePrintFormat()
             bodyOperator.text = "Operator     : " + operator
             footerCashValue.text = cash.toIndonesiaCurrency().toDoublePrintFormatWithoutRp()
-            footerNoPlat.text = "No. Plat       : " + no_plat
-            footerOdometer.text = "Odometer       : " + odometer
+            footerNoPlat.text = "No. Plat: " + no_plat
+            footerOdometer.text = "Odometer: " + odometer
+
+            if (odometer.isEmpty()){
+                footerOdometer.visibility = View.GONE
+            }
+            if (no_plat.isEmpty()){
+                footerNoPlat.visibility = View.GONE
+            }
+
+            if (no_plat.isEmpty() && odometer.isEmpty()){
+                footerBatas2.visibility = View.GONE
+            }
+
         }
 
         myLayout.isDrawingCacheEnabled = true

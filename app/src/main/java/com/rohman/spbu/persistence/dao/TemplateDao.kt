@@ -18,4 +18,7 @@ interface TemplateDao {
 
     @Query("SELECT * FROM template_table LIMIT 1")
     fun getTemplate(): LiveData<Template>
+
+    @Query("SELECT * FROM template_table LIMIT 1")
+    fun getTemplateNotReactive(): Template
 }

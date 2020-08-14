@@ -80,7 +80,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/headerShift"
-        android:layout_marginTop="10dp"
         android:text="Waktu: 29/06/2020 09:32:26"
         android:textSize="20sp"
         android:textStyle="bold" />
@@ -107,8 +106,6 @@
             android:id="@+id/bodyPompa"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
             android:text="Pulau/Pompa    : 9"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -117,8 +114,6 @@
             android:id="@+id/bodyNamaProduk"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
             android:text="Nama Produk    : PERTAITE"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -127,8 +122,6 @@
             android:id="@+id/bodyHargaPerLiter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
             android:text="Harga/Liter        : Rp.    7.650"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -137,8 +130,6 @@
             android:id="@+id/bodyVolume"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
             android:text="Volume              : (L)    2.610"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -147,8 +138,6 @@
             android:id="@+id/bodyTotalHarga"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
             android:text="Total Harga       : Rp.    20.600"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -157,8 +146,6 @@
             android:id="@+id/bodyOperator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
             android:text="Operator           : AGUS"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -217,7 +204,7 @@
         android:layout_below="@+id/footerBatas1"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
-        android:text="No. Plat    : AB 627 AH"
+        android:text="No. Plat: AB 627 AH"
         android:textSize="20sp"
         android:textStyle="bold" />
 
@@ -226,9 +213,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/footerNoPlat"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:text="Odometer    : hasjd"
+        android:text="Odometer: hasjd"
         android:textSize="20sp"
         android:textStyle="bold" />
 
@@ -261,8 +246,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/terimakasih"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
         android:text="SELAMAT JALAN"
         android:textSize="20sp"
         android:textStyle="bold" />

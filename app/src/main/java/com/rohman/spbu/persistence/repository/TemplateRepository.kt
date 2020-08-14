@@ -10,6 +10,12 @@ class TemplateRepository(private val templateDao: TemplateDao) {
 
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
+    suspend fun getTemplateNotReactive(): Template{
+        return templateDao.getTemplateNotReactive()
+    }
+
+    @Suppress("RedundantSuspendModifier")
+    @WorkerThread
     suspend fun update(template: Template){
         templateDao.update(template = template)
     }

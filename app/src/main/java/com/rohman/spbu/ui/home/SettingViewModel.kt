@@ -18,6 +18,7 @@ class SettingViewModel(val app: Application) : AndroidViewModel(app) {
     private var repository: ProductRepository
     var products: LiveData<List<Produk>>
     var productsNotReactive = MutableLiveData<List<Produk>>()
+    var templateNotReactive = MutableLiveData<Template>()
     var deviceConnection = MutableLiveData<Boolean>()
     private var productDao: ProductDao
 
@@ -40,10 +41,13 @@ class SettingViewModel(val app: Application) : AndroidViewModel(app) {
         productsNotReactive.postValue(repository.getProductNotReactive())
     }
 
+    fun getNotReactiveTemplate() = viewModelScope.launch(Dispatchers.IO){
+        templateNotReactive.postValue(templateRepository.getTemplateNotReactive())
+    }
+
     fun updateTemplate(template: Template) = viewModelScope.launch(Dispatchers.IO) {
         templateRepository.update(template = template)
     }
-
 
     fun insert(produk: Produk) = viewModelScope.launch(Dispatchers.IO) {
         repository.insert(produk)

@@ -86,7 +86,8 @@ class SettingFragment : Fragment(), ProductAdapter.Interaction,
             ViewModelProviders.of(requireActivity()).get(SettingViewModel::class.java)
 
         binding.apply {
-            productViewModel.template?.observe(viewLifecycleOwner, Observer { data ->
+            productViewModel.getNotReactiveTemplate()
+            productViewModel.templateNotReactive.observe(viewLifecycleOwner, Observer { data ->
                 template = data
                 inputNama.setText(data.nama)
                 inputAlamat.setText(data.alamat)
@@ -134,7 +135,7 @@ class SettingFragment : Fragment(), ProductAdapter.Interaction,
 
                 disposable.add(inputNama.textChanges()
                     .skip(1)
-                    .debounce(3, TimeUnit.SECONDS)
+                    .debounce(2, TimeUnit.SECONDS)
                     .observeOn(AndroidSchedulers.mainThread())
                     .map { it.toString() }
                     .filter { it.isNotEmpty() }
@@ -149,7 +150,7 @@ class SettingFragment : Fragment(), ProductAdapter.Interaction,
 
                 disposable.add(inputAlamat.textChanges()
                     .skip(1)
-                    .debounce(3, TimeUnit.SECONDS)
+                    .debounce(2, TimeUnit.SECONDS)
                     .observeOn(AndroidSchedulers.mainThread())
                     .map { it.toString() }
                     .filter { it.isNotEmpty() }
@@ -164,7 +165,7 @@ class SettingFragment : Fragment(), ProductAdapter.Interaction,
 
                 disposable.add(inputNomor.textChanges()
                     .skip(1)
-                    .debounce(3, TimeUnit.SECONDS)
+                    .debounce(2, TimeUnit.SECONDS)
                     .observeOn(AndroidSchedulers.mainThread())
                     .map { it.toString() }
                     .filter { it.isNotEmpty() }
@@ -179,7 +180,7 @@ class SettingFragment : Fragment(), ProductAdapter.Interaction,
 
                 disposable.add(inputOperator.textChanges()
                     .skip(1)
-                    .debounce(3, TimeUnit.SECONDS)
+                    .debounce(2, TimeUnit.SECONDS)
                     .observeOn(AndroidSchedulers.mainThread())
                     .map { it.toString() }
                     .filter { it.isNotEmpty() }
