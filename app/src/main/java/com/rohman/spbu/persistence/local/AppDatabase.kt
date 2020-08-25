@@ -57,7 +57,7 @@ abstract class AppDatabase : RoomDatabase() {
 
         fun MIGRATION_2_3() : Migration = object : Migration(2,3){
             override fun migrate(database: SupportSQLiteDatabase) {
-                database.execSQL("ALTER TABLE manual_table ADD COLUMN font INTEGER")
+                database.execSQL("ALTER TABLE 'manual_table' ADD COLUMN 'font' INTEGER  NOT NULL DEFAULT 1")
             }
         }
     }
