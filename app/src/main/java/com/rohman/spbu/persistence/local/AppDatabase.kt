@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.rohman.spbu.model.Foto
 import com.rohman.spbu.model.Manual
@@ -18,7 +19,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 
-@Database(entities = [Produk::class,Template::class, Manual::class,Foto::class], version = 2)
+@Database(entities = [Produk::class,Template::class, Manual::class,Foto::class], version = 3)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun productDao(): ProductDao
@@ -39,7 +40,8 @@ abstract class AppDatabase : RoomDatabase() {
                         context.applicationContext,
                         AppDatabase::class.java, "spbu_db"
                     )
-                        .fallbackToDestructiveMigration().addCallback(
+                        .addMigrations(MIGRATION_2_3())
+                        .addCallback(
                             ProductCallback(
                                 scope
                             )
@@ -50,6 +52,12 @@ abstract class AppDatabase : RoomDatabase() {
                     INSTANCE = instance
                 }
                 return instance
+            }
+        }
+
+        fun MIGRATION_2_3() : Migration = object : Migration(2,3){
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.execSQL("ALTER TABLE manual_table ADD COLUMN font INTEGER")
             }
         }
     }

@@ -26,5 +26,6 @@ data class Manual(
     var cash: Double = 0.0,
     var status: Boolean=false,
     var no_plat: String = "",
-    var odometer: String = ""
+    var odometer: String = "",
+    var font: Int = 1
 ) : Parcelable
