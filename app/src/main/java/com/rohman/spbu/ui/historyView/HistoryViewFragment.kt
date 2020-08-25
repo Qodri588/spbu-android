@@ -113,8 +113,22 @@ class HistoryViewFragment : Fragment() {
         val myLayout =
             inflatedFrame.findViewById<View>(R.id.previewContainer) as RelativeLayout
 
-        val type = ResourcesCompat.getFont(requireContext(), R.font.lettergothicstd)
-        val typeBold = ResourcesCompat.getFont(requireContext(), R.font.lettergothicstd_bold)
+        var type = ResourcesCompat.getFont(requireContext(), R.font.lettergothicstd)
+        var typeBold = ResourcesCompat.getFont(requireContext(), R.font.lettergothicstd_bold)
+
+        if (manual.font == 1) {
+            type = ResourcesCompat.getFont(requireContext(), R.font.lettergothicstd)
+            typeBold = ResourcesCompat.getFont(requireContext(), R.font.lettergothicstd_bold)
+        } else if (manual.font == 2) {
+            type = ResourcesCompat.getFont(requireContext(), R.font.consola)
+            typeBold = ResourcesCompat.getFont(requireContext(), R.font.consola_bold)
+        } else if (manual.font == 2) {
+            type = ResourcesCompat.getFont(requireContext(), R.font.cour)
+            typeBold = ResourcesCompat.getFont(requireContext(), R.font.cour_bold)
+        } else if (manual.font == 2) {
+            type = ResourcesCompat.getFont(requireContext(), R.font.ltype)
+            typeBold = ResourcesCompat.getFont(requireContext(), R.font.ltype_bold)
+        }
 
         val headerImage = myLayout.findViewById(R.id.headerImage) as ImageView
         val headerNomor = myLayout.findViewById(R.id.headerNomor) as TextView

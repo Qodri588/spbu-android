@@ -296,7 +296,7 @@ class SettingFragment : Fragment(), ProductAdapter.Interaction,
                 textStatus.text = status
             }
         }
-        (activity as MainActivity).disconnectPrinter()
+        (activity as MainActivity).reconnectPrinter()
         println("DISCONNECT CALLED")
 
     }

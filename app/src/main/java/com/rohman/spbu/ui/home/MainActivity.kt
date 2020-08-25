@@ -95,20 +95,24 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun disconnectPrinter(){
+    fun isConnected(): Boolean{
+        return IS_CONNECTED
+    }
+
+    fun reconnectPrinter(){
             binder?.disconnectCurrentPort(object : UiExecute {
                 override fun onsucess() {
                     println("BLEDEBUG DISCONNECT SUCCESS")
-                    isConnected()
+                    connectPrinter()
                 }
                 override fun onfailed() {
-                    isConnected()
+                    connectPrinter()
                     println("BLEDEBUG DISCONNECT FAILED")
                 }
             })
     }
 
-    fun isConnected() {
+    fun connectPrinter() {
         loadingDialog.show(supportFragmentManager,"loadingMain")
         getBlutoothSetting()
         val bleAdrress = deviceMac
@@ -172,7 +176,7 @@ class MainActivity : AppCompatActivity() {
         ) {
             //Bind successfully
             binder = iBinder as IMyBinder
-            isConnected()
+            connectPrinter()
             Log.e("binder", "connected")
         }
 

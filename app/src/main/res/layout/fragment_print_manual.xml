@@ -397,32 +397,91 @@
                     android:layout_marginTop="10dp"
                     android:background="@color/colorGray" />
 
-                            <TextView
-                                style="@style/HeaderTextStyle"
-                                android:text="@string/print_preview" />
+                <TextView
+                    style="@style/HeaderTextStyle"
+                    android:text="@string/print_preview" />
 
-                            <RelativeLayout
-                                android:background="@color/colorGray"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorGray"
+                    android:orientation="vertical">
 
-                                <ImageView
-                                    android:layout_margin="10dp"
-                                    android:background="@color/colorPrimary"
-                                    android:layout_alignParentEnd="true"
-                                    android:src="@drawable/ic_baseline_refresh_24"
-                                    android:id="@+id/buttonRefresh"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"/>
+                    <ImageView
+                        android:id="@+id/buttonRefresh"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_margin="10dp"
+                        android:background="@color/colorPrimary"
+                        android:src="@drawable/ic_baseline_refresh_24" />
 
-                                <ImageView
-                                    android:id="@+id/image_preview"
-                                    android:layout_width="300dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_centerHorizontal="true"
-                                    android:minHeight="400dp" />
-                            </RelativeLayout>
+                    <ImageView
+                        android:id="@+id/image_preview"
+                        android:layout_width="300dp"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:minHeight="400dp" />
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_marginTop="10dp"
+                    style="@style/SubHeaderTextStyle"
+                    android:text="Font" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:layout_marginEnd="20dp"
+                        android:textAllCaps="false"
+                        android:id="@+id/button_font_letter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/letter_gothic" />
+
+                    <Button
+                        android:textAllCaps="false"
+                        android:id="@+id/button_font_consola"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:backgroundTint="@android:color/white"
+                        android:text="@string/consola"
+                        android:textColor="@color/colorPrimary" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:layout_marginEnd="20dp"
+                        android:textAllCaps="false"
+                        android:id="@+id/button_font_cour"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:backgroundTint="@android:color/white"
+                        android:text="@string/cour"
+                        android:textColor="@color/colorPrimary" />
+
+                    <Button
+                        android:textAllCaps="false"
+                        android:id="@+id/button_font_ltype"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:backgroundTint="@android:color/white"
+                        android:text="@string/ltype"
+                        android:textColor="@color/colorPrimary" />
+
+                </LinearLayout>
 
                 <Button
                     android:id="@+id/button_print"

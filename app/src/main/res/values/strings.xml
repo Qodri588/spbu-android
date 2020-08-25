@@ -52,4 +52,8 @@
     <string name="konektivitas">Konektivitas</string>
     <string name="hubungkan">Hubungkan</string>
     <string name="sambungan">Sambungan</string>
+    <string name="letter_gothic">Letter Gothic</string>
+    <string name="consola">Consola</string>
+    <string name="cour">Cour</string>
+    <string name="ltype">Ltype</string>
 </resources>

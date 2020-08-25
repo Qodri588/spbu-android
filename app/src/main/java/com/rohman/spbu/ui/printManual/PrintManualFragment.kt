@@ -1,5 +1,6 @@
 package com.rohman.spbu.ui.printManual
 
+import android.content.res.ColorStateList
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.os.Handler
@@ -8,10 +9,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.ImageView
-import android.widget.RelativeLayout
-import android.widget.TextView
+import android.widget.*
+import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.net.toUri
 import androidx.databinding.DataBindingUtil
@@ -293,11 +292,11 @@ class PrintManualFragment : Fragment() {
                 var monthOfYearString = (monthOfYear + 1).toString()
                 var dayOfMonthString = dayOfMonth.toString()
 
-                if (monthOfYearString.length ==1 ){
+                if (monthOfYearString.length == 1) {
                     monthOfYearString = "0${monthOfYearString}"
                 }
 
-                if (dayOfMonthString.length == 1){
+                if (dayOfMonthString.length == 1) {
                     dayOfMonthString = "0${dayOfMonthString}"
                 }
 
@@ -318,13 +317,13 @@ class PrintManualFragment : Fragment() {
                 var hourString = hourOfDay.toString()
                 var secondString = second.toString()
 
-                if (minuteString.length == 1){
+                if (minuteString.length == 1) {
                     minuteString = "0$minuteString"
                 }
-                if (hourString.length == 1){
+                if (hourString.length == 1) {
                     hourString = "0$hourString"
                 }
-                if (secondString.length == 1){
+                if (secondString.length == 1) {
                     secondString = "0${secondString}"
                 }
 
@@ -360,43 +359,110 @@ class PrintManualFragment : Fragment() {
                 if (isInputValidWithError()) {
                     fillManual()
                     loadingDialog.show(childFragmentManager, "loading...")
-                    printBT()
+                    val isConnected = (activity as MainActivity).isConnected()
+                    if (isConnected) {
+                        printBT()
+                    } else {
+                        "Tidak terhubung dengan printer".showShortToast(requireActivity())
+                        viewmodel.insert(manual)
+                        (activity as MainActivity).onBackPressed()
+                    }
                 }
-            }
-        }
-
-        binding.apply {
-            if (isInputValid()) {
-                fillManual()
-
-                Glide.with(requireActivity())
-                    .load(
-                        convertGreyImg(getBitmapFromView2())?.let { resizeImage(it, CONTENT_WIDTH, false) }
-                    )
-                    .into(imagePreview)
             }
         }
 
         binding.apply {
             buttonRefresh.setOnClickListener {
-                if (isInputValid()) {
-                    fillManual()
-                }
-                Glide.with(requireActivity())
-                    .load(
-                        convertGreyImg(getBitmapFromView2())?.let {
-                            resizeImage(
-                                it,
-                                CONTENT_WIDTH,
-                                false
-                            )
-                        }
-                    )
-                    .into(imagePreview)
+                showPrintPreview()
             }
         }
 
+        binding.apply {
+            buttonFontLetter.setOnClickListener { switchFont(1) }
+            buttonFontConsola.setOnClickListener { switchFont(2) }
+            buttonFontCour.setOnClickListener { switchFont(3) }
+            buttonFontLtype.setOnClickListener { switchFont(4) }
+        }
+
+
     }
+
+    private fun showPrintPreview() {
+        binding.apply {
+            if (isInputValid()) {
+                fillManual()
+            }
+            Glide.with(requireActivity())
+                .load(
+                    convertGreyImg(getBitmapFromView2())?.let {
+                        resizeImage(
+                            it,
+                            CONTENT_WIDTH,
+                            false
+                        )
+                    }
+                )
+                .into(imagePreview)
+        }
+    }
+
+    fun switchFont(position: Int) {
+        binding.apply {
+
+            setButtonColorAndTextColor(buttonFontLtype,false)
+            setButtonColorAndTextColor(buttonFontCour,false)
+            setButtonColorAndTextColor(buttonFontConsola,false)
+            setButtonColorAndTextColor(buttonFontLetter,false)
+
+            if (position == 1){
+                setButtonColorAndTextColor(buttonFontLetter,true)
+            }else if (position == 2){
+                setButtonColorAndTextColor(buttonFontConsola,true)
+            }else if (position == 3){
+                setButtonColorAndTextColor(buttonFontCour,true)
+            }else{
+                setButtonColorAndTextColor(buttonFontLtype,true)
+            }
+        }
+
+        manual.font = position
+        showPrintPreview()
+    }
+
+    private fun setButtonColorAndTextColor(button: Button, active: Boolean) {
+        if (active) {
+            button.backgroundTintList = ColorStateList.valueOf(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.colorPrimary
+                )
+            )
+            button.setTextColor(
+                ColorStateList.valueOf(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.colorWhite
+                    )
+                )
+            )
+        } else {
+            button.backgroundTintList = ColorStateList.valueOf(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.colorWhite
+                )
+            )
+            button.setTextColor(
+                ColorStateList.valueOf(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.colorPrimary
+                    )
+                )
+            )
+        }
+    }
+
 
     fun fillManual() {
         binding.apply {
@@ -411,7 +477,7 @@ class PrintManualFragment : Fragment() {
             manual.pompa = inputPompa.text.toString().toInt()
             manual.produk = inputNamaProduk.text.toString()
             manual.harga_per_liter = inputHargaPerLiter.text.toString().toDouble()
-            manual.volume = inputVolume.text.toString().replace(',','.').toDouble()
+            manual.volume = inputVolume.text.toString().replace(',', '.').toDouble()
             manual.total_harga = inputTotalHarga.text.toString().toDouble()
             manual.operator = inputOperator.text.toString()
 
@@ -537,20 +603,16 @@ class PrintManualFragment : Fragment() {
         var type = ResourcesCompat.getFont(requireContext(), R.font.lettergothicstd)
         var typeBold = ResourcesCompat.getFont(requireContext(), R.font.lettergothicstd_bold)
 
-
-        if (manual.font == 1){
+        if (manual.font == 1) {
             type = ResourcesCompat.getFont(requireContext(), R.font.lettergothicstd)
             typeBold = ResourcesCompat.getFont(requireContext(), R.font.lettergothicstd_bold)
-        }
-        else if (manual.font == 2){
+        } else if (manual.font == 2) {
             type = ResourcesCompat.getFont(requireContext(), R.font.consola)
             typeBold = ResourcesCompat.getFont(requireContext(), R.font.consola_bold)
-        }
-        else if (manual.font == 2){
+        } else if (manual.font == 2) {
             type = ResourcesCompat.getFont(requireContext(), R.font.cour)
             typeBold = ResourcesCompat.getFont(requireContext(), R.font.cour_bold)
-        }
-        else if (manual.font == 2){
+        } else if (manual.font == 2) {
             type = ResourcesCompat.getFont(requireContext(), R.font.ltype)
             typeBold = ResourcesCompat.getFont(requireContext(), R.font.ltype_bold)
         }
@@ -622,14 +684,14 @@ class PrintManualFragment : Fragment() {
             footerNoPlat.text = "No. Plat: " + no_plat
             footerOdometer.text = "Odometer: " + odometer
 
-            if (odometer.isEmpty()){
+            if (odometer.isEmpty()) {
                 footerOdometer.visibility = View.GONE
             }
-            if (no_plat.isEmpty()){
+            if (no_plat.isEmpty()) {
                 footerNoPlat.visibility = View.GONE
             }
 
-            if (no_plat.isEmpty() && odometer.isEmpty()){
+            if (no_plat.isEmpty() && odometer.isEmpty()) {
                 footerBatas2.visibility = View.GONE
             }
 
@@ -652,7 +714,6 @@ class PrintManualFragment : Fragment() {
 
         return myLayout.drawingCache
     }
-
 
 
     override fun onDestroy() {
