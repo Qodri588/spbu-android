@@ -289,8 +289,20 @@ class PrintManualFragment : Fragment() {
         val now: Calendar = Calendar.getInstance()
         datePickerDialog = DatePickerDialog.newInstance(
             { _, year, monthOfYear, dayOfMonth ->
+
+                var monthOfYearString = (monthOfYear + 1).toString()
+                var dayOfMonthString = dayOfMonth.toString()
+
+                if (monthOfYearString.length ==1 ){
+                    monthOfYearString = "0${monthOfYearString}"
+                }
+
+                if (dayOfMonthString.length == 1){
+                    dayOfMonthString = "0${dayOfMonthString}"
+                }
+
                 val date =
-                    dayOfMonth.toString() + "/" + (monthOfYear + 1).toString() + "/" + year
+                    "$dayOfMonthString/$monthOfYearString/$year"
                 Log.d("Datee", date)
                 timeDatePicker.show(childFragmentManager, "Time Picker")
                 selectedDate = date
@@ -302,8 +314,22 @@ class PrintManualFragment : Fragment() {
 
         timeDatePicker = TimePickerDialog.newInstance(
             { _, hourOfDay, minute, second ->
+                var minuteString = minute.toString()
+                var hourString = hourOfDay.toString()
+                var secondString = second.toString()
+
+                if (minuteString.length == 1){
+                    minuteString = "0$minuteString"
+                }
+                if (hourString.length == 1){
+                    hourString = "0$hourString"
+                }
+                if (secondString.length == 1){
+                    secondString = "0${secondString}"
+                }
+
                 val date =
-                    hourOfDay.toString() + ":" + (minute).toString() + ":" + second
+                    "$hourString:$minuteString:$secondString"
                 Log.d("Datee", date)
                 selectedDate += " $date"
                 manual.waktu = date
