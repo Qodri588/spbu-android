@@ -31,6 +31,7 @@ abstract class ManualAllModel : EpoxyModelWithHolder<ManualAllModel.Holder>() {
         lateinit var text_nama_produk: TextView
         lateinit var card_history: CardView
         lateinit var checkBox: CheckBox
+        lateinit var text_status: TextView
 
         override fun bindView(itemView: View) {
             text_harga = itemView.findViewById(R.id.text_price_detail)
@@ -38,7 +39,7 @@ abstract class ManualAllModel : EpoxyModelWithHolder<ManualAllModel.Holder>() {
             text_tanggal = itemView.findViewById(R.id.text_date)
             text_nama_produk = itemView.findViewById(R.id.text_nama_produk)
             card_history = itemView.findViewById(R.id.cardHistory)
-//            text_status = itemView.findViewById(R.id.text_status)
+            text_status = itemView.findViewById(R.id.text_status)
             checkBox = itemView.findViewById(R.id.checkBox)
         }
 
@@ -61,7 +62,7 @@ abstract class ManualAllModel : EpoxyModelWithHolder<ManualAllModel.Holder>() {
             val harga = "    : " + manualObj.total_harga.toIndonesiaCurrency()
             val volume = "   : ${manualObj.volume}"
             val status = if (manualObj.status){"Status    : Sukses"} else {"Status    : Gagal"}
-//            text_status.text = status
+            text_status.text = status
 
             text_tanggal.text = manualObj.waktu
             text_jumlah.text = volume
